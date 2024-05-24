@@ -1,7 +1,7 @@
 # GAttack 
 Evaluation results of the GAttack model. 
-The evaluation is twofold. First, the quality of generated data is assessed using three metrics: MMD (https://jmlr.org/papers/volume13/gretton12a/gretton12a.pdf), Predictive and Generative Score (https://proceedings.neurips.cc/paper_files/paper/2019/file/c9efe5f26cd17ba6216bbe2a7d26d490-Paper.pdf) 
-Second, the attack is tested against the INDRA IDS (https://ieeexplore.ieee.org/document/9211565)
+The evaluation is twofold. First, the quality of generated data is assessed using three metrics: MMD (https://jmlr.org/papers/volume13/gretton12a/gretton12a.pdf), Predictive and Generative Score (https://proceedings.neurips.cc/paper_files/paper/2019/file/c9efe5f26cd17ba6216bbe2a7d26d490-Paper.pdf)  
+Second, the attack is tested against the INDRA IDS. The implementation has for the IDS has been done in pytorch following the guidance from the original paper(https://ieeexplore.ieee.org/document/9211565).
 
 ### Content of the repository  
 
