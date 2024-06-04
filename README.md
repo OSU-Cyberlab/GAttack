@@ -18,4 +18,32 @@ utils.py // Utility methods
 ├─ metrics_calculation.ipynb // Notebook that computes MMD, PS and DS on the dataset  
 └─ IDS_testing.ipynb // Notebook that constructs GAttack and tests it against the IDS  
 
-### Usage Guide
+### Notebooks explanation
+
+#### metrics_calculation.ipynb:
+
+the notebook loads the data, then applies a preprocessing composed of two steps:
+
+1) normalization in the range [0, 1]
+2) transformation into two arrays (one for original and one for generated data) of subsequences composed by 50 points each using a sliding window
+
+the arrays are then used to compute MMD, Discriminative and Predictive scores by calling the corresponding methods from the metrics.py script. Note that the results presented in the paper are obtained by running the methods 10 times and calculating the confidence interval on the results.
+
+#### IDS_testing.ipynb:
+
+the notebook instantiates the IDS and then tests GAttack against it, along with several other attacks to compare the accuracy. The notebook is divided into sections:
+
+1) Initialization: loads the required libraries and sets the parameters. the IDS is trained separately for the two sensor signals present in the dataset. The "sensor_id" variable determines which signal will be analyzed, and should be set accordingly (1 or 2 are acceptable values, default is 2).
+2) Data Loading: loads the dataset and applies the same preprocessing described for the metrics calculation notebook.
+3) Attacks Simulation: adds perturbations to the original data in order to simulate the injection of different attacks. The modality of injection consists in alternating segments of malicious data with segments of unaltered (original) data. The length of such segments is controlled by the "att_len" and "non_att_len" variables, whereas the total number of injections over the dataset is controlled by the "att_instances" variable. The tests presented in the paper were performed with the default values present in the notebook (att_len = 130, non_att_len = 300, att_instances = 17). The simulated attacks are:
+   - GAttack: the malicious portion of the data is substituted with the corresponding segment extracted from the dataset containing the synthetically generated data
+   - Random Attack: the malicious portion of the data is substituted with a randomly generated sequence
+   - Sawtooth Attack: the malicious portion of the data is substituted with a sawtooth signal
+   - Plateau Attack: the malicious portion of the data is substituted with a constant value
+   - Replay Attack: the malicious portion of the data is substituted with a sequence extracted from the original data itself, but at a different point in time
+each attack is then stored in a different data loader plotted.
+4) Model Instantiation: the IDS model is created and the weights corresponding to the selected sensor signal are loaded.
+5) Threshold selection: the threshold for the IDS is set by calculating the highest IS (Intrusion Score, i.e. square of the pointwise difference between the actual and reconstructed data) on the non-anomalous dataset.
+6) Anomaly Detection: the threshold is used to perform intrusion detection on the simulated attacks. Each attack instance is counted separately and considered detected if the IS exceeds the threshold at least once during the interval.
+
+
