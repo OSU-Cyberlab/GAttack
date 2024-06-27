@@ -44,6 +44,6 @@ the notebook instantiates the IDS and then tests GAttack against it, along with 
 each attack is then stored in a different data loader plotted.
 4) Model Instantiation: the IDS model is created and the weights corresponding to the selected sensor signal are loaded.
 5) Threshold selection: the threshold for the IDS is set by calculating the highest IS (Intrusion Score, i.e. square of the pointwise difference between the actual and reconstructed data) on the non-anomalous dataset.
-6) Anomaly Detection: the threshold is used to perform intrusion detection on the simulated attacks. Each attack instance is counted separately and considered detected if the IS exceeds the threshold at least once during the interval.
-
+6) Anomaly Detection: the threshold is used to perform intrusion detection on the simulated attacks. Each attack instance is counted separately and considered detected if the IS exceeds the threshold at least once during the interval. The picture below shows a graphical representation of this process done on GAttack applied to signal 2. Red background indicates an interval where the attack is injected and the red line indicates the IDS detection (goes to 1 whenever the IS is exceeded).
+![output](https://github.com/OSU-Cyberlab/GAttack/assets/56716921/9e35a3aa-16db-4c4d-8ad1-b4addadc1da7)
 
